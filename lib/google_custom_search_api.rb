@@ -166,7 +166,7 @@ module GoogleCustomSearchApi
     rescue NameError
     end
     "https://www.googleapis.com/customsearch/v1?" \
-      "key=#{GOOGLE_API_KEY}&cx=#{GOOGLE_SEARCH_CX}&#{uri.query}"
+      "key=#{opts[:api_key]}&cx=#{opts[:cx_key]}&#{uri.query}"
   end
 
   ##
