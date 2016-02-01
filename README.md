@@ -8,20 +8,11 @@ Questions/comments, etc: wiseleyb@gmail.com
 
 Add to your Gemfile:
 
-  gem "google_custom_search_api"
+  gem "sk_google_custom_search_api"
 
 then
 
   bundle install
-
-## Configure
-
-You need to configure ```GOOGLE_SEARCH_CX``` and ```GOOGLE_API_KEY``` to ```config/initializers/google_cse_api.rb```:
-
-```
-  GOOGLE_API_KEY = "..."
-  GOOGLE_SEARCH_CX = "..."
-```
 
 Google's API management is confusing at best. At the time of this writing you codes like so:
 
@@ -49,7 +40,7 @@ Google's API management is confusing at best. At the time of this writing you co
 To perform a search:
 
 ```
-  results = GoogleCustomSearchApi.search("poker")
+  results = GoogleCustomSearchApi.search("poker", {api_key: API_KEY, cx_key: CX_KEY})
 ```
 Results now contains a raw version and a class'ed version of the data show in ```Sample results``` below.
 
@@ -110,11 +101,11 @@ This method isn't so useful because it's pretty slow (do to fetching up to 10 pa
 ```
   results = search_and_return_all_results('poker')
   results.first.items.size # == 10
-  
+
   search_and_resturn_all_results('poker') do |results|
     results.items.size # == 10  10 times
   end
-  
+
   search_and_return_all_results(
     '"California cult winery known for its Rhône"') do |results|
     results.items.size # == 3  1 time
@@ -123,26 +114,26 @@ This method isn't so useful because it's pretty slow (do to fetching up to 10 pa
 
 ### Errors
 
-Custom Search only returns a maximum of 100 results so - if you try something like 
+Custom Search only returns a maximum of 100 results so - if you try something like
 
 ```
   results = GoogleCustomSearchApi.search('poker', start: 101)
 ```
-You get error and empty items. 
+You get error and empty items.
 
 ```
 	{
 	  "error"=> {
 	    "errors"=> [
 	      {
-	        "domain"=>"global", 
-	         "reason"=>"invalid", 
+	        "domain"=>"global",
+	         "reason"=>"invalid",
 	         "message"=>"Invalid Value"
 	      }
-	    ], 
-	    "code"=>400, 
+	    ],
+	    "code"=>400,
 	    "message"=>"Invalid Value"
-	  }, 
+	  },
 	  "items"=>[]
 	}
 ```
@@ -278,7 +269,7 @@ To run tests
 ```
 
 ## Credits
-* Based largely on the gem https://github.com/alexreisner/google_custom_search 
+* Based largely on the gem https://github.com/alexreisner/google_custom_search
 * Awesome ResponseData class from https://github.com/mikedemers/rbing
 * Work done while working on a project for the company http://reInteractive.net in sunny Sydney.  A great ruby shop should you need help with something.
 
